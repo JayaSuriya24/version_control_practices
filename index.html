@@ -120,6 +120,29 @@
         border-radius: 999px;
         transition: 0.25s ease;
         font-size: 0.95rem;
+        position: relative;
+      }
+
+      .nav-tip {
+        position: absolute;
+        top: -42px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(20, 33, 61, 0.95);
+        color: white;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links a:hover .nav-tip,
+      .nav-links a.active .nav-tip {
+        opacity: 1;
       }
 
       .nav-links a:hover,
@@ -253,6 +276,26 @@
         font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
         font-size: 0.96rem;
         color: #1e3a8a;
+        display: block;
+        white-space: pre;
+        line-height: 1.6;
+      }
+
+      code .cmd-line {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+      }
+
+      code .cmd {
+        flex: 0 0 auto;
+      }
+
+      code .ctx {
+        flex: 1;
+        text-align: center;
+        color: #4b5563;
+        font-style: italic;
       }
 
       .note {
@@ -295,14 +338,14 @@
       <nav>
         <div class="brand">Git Reference</div>
         <div class="nav-links">
-          <a href="#daily" class="active">Daily</a>
-          <a href="#tier1">Tier 1</a>
-          <a href="#tier2">Tier 2</a>
-          <a href="#tier3">Tier 3</a>
-          <a href="#tier4">Tier 4</a>
-          <a href="#tier5">Tier 5</a>
-          <a href="#tier6">Tier 6</a>
-          <a href="#github">GitHub</a>
+          <a href="#daily" class="active"><span class="nav-tip">Most Used Daily Commands</span>Daily</a>
+          <a href="#tier1"><span class="nav-tip">Tier 1: Daily Essentials</span>Tier 1</a>
+          <a href="#tier2"><span class="nav-tip">Tier 2: Branching</span>Tier 2</a>
+          <a href="#tier3"><span class="nav-tip">Tier 3: Undoing and Fixing Mistakes</span>Tier 3</a>
+          <a href="#tier4"><span class="nav-tip">Tier 4: Remote and Collaboration</span>Tier 4</a>
+          <a href="#tier5"><span class="nav-tip">Tier 5: Inspecting History</span>Tier 5</a>
+          <a href="#tier6"><span class="nav-tip">Tier 6: More Advanced</span>Tier 6</a>
+          <a href="#github"><span class="nav-tip">GitHub-Specific Concepts</span>GitHub</a>
         </div>
       </nav>
 
@@ -329,15 +372,15 @@
         <div class="card-grid">
           <article class="card">
             <h3>Everyday workflow</h3>
-            <pre><code>git status
-git add .
-git commit -m "message"
-git push
-git pull
-git branch
-git switch &lt;branch&gt;
-git log --oneline
-git diff</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git status</span><span class="ctx">[check working tree state]</span></span>
+<span class="cmd-line"><span class="cmd">git add .</span><span class="ctx">[stage all changes]</span></span>
+<span class="cmd-line"><span class="cmd">git commit -m "message"</span><span class="ctx">[save staged changes]</span></span>
+<span class="cmd-line"><span class="cmd">git push</span><span class="ctx">[upload commits to remote]</span></span>
+<span class="cmd-line"><span class="cmd">git pull</span><span class="ctx">[download latest changes]</span></span>
+<span class="cmd-line"><span class="cmd">git branch</span><span class="ctx">[show local branches]</span></span>
+<span class="cmd-line"><span class="cmd">git switch &lt;branch&gt;</span><span class="ctx">[switch to another branch]</span></span>
+<span class="cmd-line"><span class="cmd">git log --oneline</span><span class="ctx">[view recent commit history]</span></span>
+<span class="cmd-line"><span class="cmd">git diff</span><span class="ctx">[show changes between files or commits]</span></span></code></pre>
             <div class="note">
               This is the core loop for most daily Git work: check status, stage changes, commit, push, and pull before moving on.
             </div>
@@ -353,16 +396,16 @@ git diff</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Core commands</h3>
-            <pre><code>git init
-git clone &lt;url&gt;
-git status
-git add &lt;file&gt;
-git add .
-git commit -m "message"
-git push
-git pull
-git log
-git diff</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git init</span><span class="ctx">[create a new repository]</span></span>
+<span class="cmd-line"><span class="cmd">git clone &lt;url&gt;</span><span class="ctx">[copy a repository from remote]</span></span>
+<span class="cmd-line"><span class="cmd">git status</span><span class="ctx">[check repository state]</span></span>
+<span class="cmd-line"><span class="cmd">git add &lt;file&gt;</span><span class="ctx">[stage one file]</span></span>
+<span class="cmd-line"><span class="cmd">git add .</span><span class="ctx">[stage all changes]</span></span>
+<span class="cmd-line"><span class="cmd">git commit -m "message"</span><span class="ctx">[save staged changes]</span></span>
+<span class="cmd-line"><span class="cmd">git push</span><span class="ctx">[upload commits]</span></span>
+<span class="cmd-line"><span class="cmd">git pull</span><span class="ctx">[download and merge remote updates]</span></span>
+<span class="cmd-line"><span class="cmd">git log</span><span class="ctx">[view commit history]</span></span>
+<span class="cmd-line"><span class="cmd">git diff</span><span class="ctx">[see pending changes]</span></span></code></pre>
           </article>
         </div>
       </section>
@@ -375,15 +418,15 @@ git diff</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Branch commands</h3>
-            <pre><code>git branch
-git branch &lt;name&gt;
-git checkout &lt;branch&gt;
-git checkout -b &lt;name&gt;
-git switch &lt;branch&gt;
-git switch -c &lt;name&gt;
-git merge &lt;branch&gt;
-git branch -d &lt;name&gt;
-git branch -D &lt;name&gt;</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git branch</span><span class="ctx">[list branches]</span></span>
+<span class="cmd-line"><span class="cmd">git branch &lt;name&gt;</span><span class="ctx">[create a new branch]</span></span>
+<span class="cmd-line"><span class="cmd">git checkout &lt;branch&gt;</span><span class="ctx">[switch branches]</span></span>
+<span class="cmd-line"><span class="cmd">git checkout -b &lt;name&gt;</span><span class="ctx">[create and switch branch]</span></span>
+<span class="cmd-line"><span class="cmd">git switch &lt;branch&gt;</span><span class="ctx">[switch to a branch]</span></span>
+<span class="cmd-line"><span class="cmd">git switch -c &lt;name&gt;</span><span class="ctx">[create and switch branch]</span></span>
+<span class="cmd-line"><span class="cmd">git merge &lt;branch&gt;</span><span class="ctx">[combine branch changes]</span></span>
+<span class="cmd-line"><span class="cmd">git branch -d &lt;name&gt;</span><span class="ctx">[delete a merged branch]</span></span>
+<span class="cmd-line"><span class="cmd">git branch -D &lt;name&gt;</span><span class="ctx">[force delete a branch]</span></span></code></pre>
           </article>
         </div>
       </section>
@@ -396,18 +439,18 @@ git branch -D &lt;name&gt;</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Safe recovery tools</h3>
-            <pre><code>git restore &lt;file&gt;
-git checkout -- &lt;file&gt;
-git reset &lt;file&gt;
-git reset --soft HEAD~1
-git reset --mixed HEAD~1
-git reset --hard HEAD~1
-git revert &lt;commit&gt;
-git commit --amend
-git stash
-git stash pop
-git stash list
-git clean -fd</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git restore &lt;file&gt;</span><span class="ctx">[restore a file from the index]</span></span>
+<span class="cmd-line"><span class="cmd">git checkout -- &lt;file&gt;</span><span class="ctx">[discard file changes]</span></span>
+<span class="cmd-line"><span class="cmd">git reset &lt;file&gt;</span><span class="ctx">[unstage a file]</span></span>
+<span class="cmd-line"><span class="cmd">git reset --soft HEAD~1</span><span class="ctx">[undo last commit and keep changes]</span></span>
+<span class="cmd-line"><span class="cmd">git reset --mixed HEAD~1</span><span class="ctx">[undo last commit and unstage changes]</span></span>
+<span class="cmd-line"><span class="cmd">git reset --hard HEAD~1</span><span class="ctx">[discard last commit and changes]</span></span>
+<span class="cmd-line"><span class="cmd">git revert &lt;commit&gt;</span><span class="ctx">[create a safe undo commit]</span></span>
+<span class="cmd-line"><span class="cmd">git commit --amend</span><span class="ctx">[change the last commit]</span></span>
+<span class="cmd-line"><span class="cmd">git stash</span><span class="ctx">[temporarily save changes]</span></span>
+<span class="cmd-line"><span class="cmd">git stash pop</span><span class="ctx">[restore stashed changes]</span></span>
+<span class="cmd-line"><span class="cmd">git stash list</span><span class="ctx">[show saved stashes]</span></span>
+<span class="cmd-line"><span class="cmd">git clean -fd</span><span class="ctx">[remove untracked files]</span></span></code></pre>
           </article>
         </div>
       </section>
@@ -420,13 +463,13 @@ git clean -fd</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Collaboration commands</h3>
-            <pre><code>git remote -v
-git remote add origin &lt;url&gt;
-git remote remove &lt;name&gt;
-git fetch
-git push -u origin &lt;branch&gt;
-git push origin --delete &lt;branch&gt;
-git pull --rebase</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git remote -v</span><span class="ctx">[list remote repositories]</span></span>
+<span class="cmd-line"><span class="cmd">git remote add origin &lt;url&gt;</span><span class="ctx">[connect a remote]</span></span>
+<span class="cmd-line"><span class="cmd">git remote remove &lt;name&gt;</span><span class="ctx">[remove a remote]</span></span>
+<span class="cmd-line"><span class="cmd">git fetch</span><span class="ctx">[download remote changes]</span></span>
+<span class="cmd-line"><span class="cmd">git push -u origin &lt;branch&gt;</span><span class="ctx">[publish a branch to remote]</span></span>
+<span class="cmd-line"><span class="cmd">git push origin --delete &lt;branch&gt;</span><span class="ctx">[delete a remote branch]</span></span>
+<span class="cmd-line"><span class="cmd">git pull --rebase</span><span class="ctx">[update by replaying local commits]</span></span></code></pre>
           </article>
         </div>
       </section>
@@ -439,11 +482,11 @@ git pull --rebase</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>History and inspection</h3>
-            <pre><code>git log --oneline
-git log --graph --all
-git show &lt;commit&gt;
-git blame &lt;file&gt;
-git diff &lt;branch1&gt; &lt;branch2&gt;</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git log --oneline</span><span class="ctx">[show compact commit history]</span></span>
+<span class="cmd-line"><span class="cmd">git log --graph --all</span><span class="ctx">[view branch history graph]</span></span>
+<span class="cmd-line"><span class="cmd">git show &lt;commit&gt;</span><span class="ctx">[display commit details]</span></span>
+<span class="cmd-line"><span class="cmd">git blame &lt;file&gt;</span><span class="ctx">[see who changed each line]</span></span>
+<span class="cmd-line"><span class="cmd">git diff &lt;branch1&gt; &lt;branch2&gt;</span><span class="ctx">[compare branch contents]</span></span></code></pre>
           </article>
         </div>
       </section>
@@ -456,13 +499,13 @@ git diff &lt;branch1&gt; &lt;branch2&gt;</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Advanced workflows</h3>
-            <pre><code>git rebase &lt;branch&gt;
-git rebase -i HEAD~3
-git cherry-pick &lt;commit&gt;
-git tag &lt;name&gt;
-git submodule
-git bisect
-git reflog</code></pre>
+            <pre><code><span class="cmd-line"><span class="cmd">git rebase &lt;branch&gt;</span><span class="ctx">[reapply commits onto another branch]</span></span>
+<span class="cmd-line"><span class="cmd">git rebase -i HEAD~3</span><span class="ctx">[edit recent commits interactively]</span></span>
+<span class="cmd-line"><span class="cmd">git cherry-pick &lt;commit&gt;</span><span class="ctx">[apply a specific commit]</span></span>
+<span class="cmd-line"><span class="cmd">git tag &lt;name&gt;</span><span class="ctx">[create a release tag]</span></span>
+<span class="cmd-line"><span class="cmd">git submodule</span><span class="ctx">[manage nested repositories]</span></span>
+<span class="cmd-line"><span class="cmd">git bisect</span><span class="ctx">[find the bad commit]</span></span>
+<span class="cmd-line"><span class="cmd">git reflog</span><span class="ctx">[inspect recent history references]</span></span></code></pre>
           </article>
         </div>
       </section>
@@ -483,6 +526,113 @@ git reflog</code></pre>
             <div class="note">
               A practical note: learn Tier 1 and Tier 2 by using them daily, keep this page as a reference for the rest, and only dive deeper when a real problem requires it.
             </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="extra">
+        <div class="section-title">
+          <h2>Additional Useful Commands</h2>
+          <span>Less common, but handy when the need arises</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Configuration &amp; setup</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git config --global core.editor "code --wait"</span><span class="ctx">[set VS Code as the default editor]</span></span>
+<span class="cmd-line"><span class="cmd">git config --list</span><span class="ctx">[view current Git settings]</span></span>
+<span class="cmd-line"><span class="cmd">git config --global alias.st status</span><span class="ctx">[create a shortcut alias]</span></span>
+<span class="cmd-line"><span class="cmd">git config --global init.defaultBranch main</span><span class="ctx">[set the default branch name]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Searching and filtering</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git grep "searchTerm"</span><span class="ctx">[search tracked files for text]</span></span>
+<span class="cmd-line"><span class="cmd">git log --author="name"</span><span class="ctx">[filter commits by author]</span></span>
+<span class="cmd-line"><span class="cmd">git log --since="2 weeks ago"</span><span class="ctx">[filter commits by date]</span></span>
+<span class="cmd-line"><span class="cmd">git log --grep="fix"</span><span class="ctx">[search commit messages]</span></span>
+<span class="cmd-line"><span class="cmd">git log -- &lt;file&gt;</span><span class="ctx">[view history for one file]</span></span>
+<span class="cmd-line"><span class="cmd">git log -p</span><span class="ctx">[show diffs for each commit]</span></span>
+<span class="cmd-line"><span class="cmd">git shortlog -sn</span><span class="ctx">[summarize commits per author]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Comparing &amp; finding things</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git describe</span><span class="ctx">[show a human-readable commit name]</span></span>
+<span class="cmd-line"><span class="cmd">git rev-parse HEAD</span><span class="ctx">[print the current commit hash]</span></span>
+<span class="cmd-line"><span class="cmd">git ls-files</span><span class="ctx">[list tracked files]</span></span>
+<span class="cmd-line"><span class="cmd">git show HEAD~2:file.txt</span><span class="ctx">[view a file from two commits ago]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Patch-based workflows</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git format-patch -1 HEAD</span><span class="ctx">[turn a commit into an email patch]</span></span>
+<span class="cmd-line"><span class="cmd">git apply patch.diff</span><span class="ctx">[apply a patch file]</span></span>
+<span class="cmd-line"><span class="cmd">git am patch.mbox</span><span class="ctx">[apply a mailbox of patches]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Working with multiple checkouts</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git worktree add ../other-folder branch-name</span><span class="ctx">[check out a branch in another folder]</span></span>
+<span class="cmd-line"><span class="cmd">git worktree list</span><span class="ctx">[show all active worktrees]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Large or partial repos</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git sparse-checkout set folder1 folder2</span><span class="ctx">[check out only selected folders]</span></span>
+<span class="cmd-line"><span class="cmd">git archive --format=zip HEAD -o out.zip</span><span class="ctx">[export the repo as a zip file]</span></span>
+<span class="cmd-line"><span class="cmd">git bundle create repo.bundle main</span><span class="ctx">[package a repo into a transferable file]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Maintenance / repair</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git fsck</span><span class="ctx">[check repository integrity]</span></span>
+<span class="cmd-line"><span class="cmd">git gc</span><span class="ctx">[clean up and optimize the repository]</span></span>
+<span class="cmd-line"><span class="cmd">git reflog expire --expire=now --all</span><span class="ctx">[clear reflogs immediately]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Submodules &amp; subtrees</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git submodule add &lt;url&gt; path/</span><span class="ctx">[add another repo as a submodule]</span></span>
+<span class="cmd-line"><span class="cmd">git submodule update --init</span><span class="ctx">[initialize submodule contents]</span></span>
+<span class="cmd-line"><span class="cmd">git subtree add --prefix=lib &lt;url&gt; main</span><span class="ctx">[bring in another repo as a subtree]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Notes</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git notes add -m "note"</span><span class="ctx">[attach a note to a commit]</span></span></code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="rare">
+        <div class="section-title">
+          <h2>Rare / Edge-Case Commands</h2>
+          <span>Mostly for unusual or advanced situations</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Advanced workflow helpers</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git commit --fixup=&lt;commit&gt;</span><span class="ctx">[mark a commit as a fix for an earlier one]</span></span>
+<span class="cmd-line"><span class="cmd">git rebase -i --autosquash</span><span class="ctx">[apply fixup commits automatically during rebase]</span></span>
+<span class="cmd-line"><span class="cmd">git rerere</span><span class="ctx">[reuse a previous conflict resolution]</span></span>
+<span class="cmd-line"><span class="cmd">git range-diff &lt;r1&gt; &lt;r2&gt;</span><span class="ctx">[compare two ranges of commits]</span></span>
+<span class="cmd-line"><span class="cmd">git merge-tree</span><span class="ctx">[preview a merge without applying it]</span></span>
+<span class="cmd-line"><span class="cmd">git replace</span><span class="ctx">[temporarily swap one object for another]</span></span>
+<span class="cmd-line"><span class="cmd">git verify-commit / verify-tag</span><span class="ctx">[check GPG signatures]</span></span>
+<span class="cmd-line"><span class="cmd">git commit -S -m "message"</span><span class="ctx">[create a signed commit]</span></span>
+<span class="cmd-line"><span class="cmd">git maintenance start</span><span class="ctx">[enable automatic repository maintenance]</span></span></code></pre>
+          </article>
+
+          <article class="card">
+            <h3>Plumbing commands</h3>
+            <pre><code><span class="cmd-line"><span class="cmd">git hash-object &lt;file&gt;</span><span class="ctx">[compute the hash of file content]</span></span>
+<span class="cmd-line"><span class="cmd">git cat-file -p &lt;hash&gt;</span><span class="ctx">[inspect a raw Git object]</span></span>
+<span class="cmd-line"><span class="cmd">git ls-tree &lt;tree&gt;</span><span class="ctx">[list the contents of a tree object]</span></span>
+<span class="cmd-line"><span class="cmd">git write-tree</span><span class="ctx">[create a tree object from the index]</span></span>
+<span class="cmd-line"><span class="cmd">git update-index</span><span class="ctx">[manually update the staging area]</span></span>
+<span class="cmd-line"><span class="cmd">git count-objects</span><span class="ctx">[show repository size statistics]</span></span>
+<span class="cmd-line"><span class="cmd">git prune</span><span class="ctx">[remove unreachable objects]</span></span>
+<span class="cmd-line"><span class="cmd">git repack</span><span class="ctx">[repackage objects for efficiency]</span></span></code></pre>
           </article>
         </div>
       </section>
