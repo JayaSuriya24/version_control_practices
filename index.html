@@ -329,15 +329,15 @@
         <div class="card-grid">
           <article class="card">
             <h3>Everyday workflow</h3>
-            <pre><code>git status
-git add .
-git commit -m "message"
-git push
-git pull
-git branch
-git switch &lt;branch&gt;
-git log --oneline
-git diff</code></pre>
+            <pre><code>git status [check working tree state]
+git add . [stage all changes]
+git commit -m "message" [save staged changes]
+git push [upload commits to remote]
+git pull [download latest changes]
+git branch [show local branches]
+git switch &lt;branch&gt; [move to another branch]
+git log --oneline [view recent commit history]
+git diff [show changes between files or commits]</code></pre>
             <div class="note">
               This is the core loop for most daily Git work: check status, stage changes, commit, push, and pull before moving on.
             </div>
@@ -353,16 +353,16 @@ git diff</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Core commands</h3>
-            <pre><code>git init
-git clone &lt;url&gt;
-git status
-git add &lt;file&gt;
-git add .
-git commit -m "message"
-git push
-git pull
-git log
-git diff</code></pre>
+            <pre><code>git init [create a new repository]
+git clone &lt;url&gt; [copy a repository from remote]
+git status [check repository state]
+git add &lt;file&gt; [stage one file]
+git add . [stage all changes]
+git commit -m "message" [save staged changes]
+git push [upload commits]
+git pull [download and merge remote updates]
+git log [view commit history]
+git diff [see pending changes]</code></pre>
           </article>
         </div>
       </section>
@@ -375,15 +375,15 @@ git diff</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Branch commands</h3>
-            <pre><code>git branch
-git branch &lt;name&gt;
-git checkout &lt;branch&gt;
-git checkout -b &lt;name&gt;
-git switch &lt;branch&gt;
-git switch -c &lt;name&gt;
-git merge &lt;branch&gt;
-git branch -d &lt;name&gt;
-git branch -D &lt;name&gt;</code></pre>
+            <pre><code>git branch [list branches]
+git branch &lt;name&gt; [create a new branch]
+git checkout &lt;branch&gt; [switch branches]
+git checkout -b &lt;name&gt; [create and switch branch]
+git switch &lt;branch&gt; [switch to a branch]
+git switch -c &lt;name&gt; [create and switch branch]
+git merge &lt;branch&gt; [combine branch changes]
+git branch -d &lt;name&gt; [delete a merged branch]
+git branch -D &lt;name&gt; [force delete a branch]</code></pre>
           </article>
         </div>
       </section>
@@ -396,18 +396,18 @@ git branch -D &lt;name&gt;</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Safe recovery tools</h3>
-            <pre><code>git restore &lt;file&gt;
-git checkout -- &lt;file&gt;
-git reset &lt;file&gt;
-git reset --soft HEAD~1
-git reset --mixed HEAD~1
-git reset --hard HEAD~1
-git revert &lt;commit&gt;
-git commit --amend
-git stash
-git stash pop
-git stash list
-git clean -fd</code></pre>
+            <pre><code>git restore &lt;file&gt; [restore a file from the index]
+git checkout -- &lt;file&gt; [discard file changes]
+git reset &lt;file&gt; [unstage a file]
+git reset --soft HEAD~1 [undo last commit and keep changes]
+git reset --mixed HEAD~1 [undo last commit and unstage changes]
+git reset --hard HEAD~1 [discard last commit and changes]
+git revert &lt;commit&gt; [create a safe undo commit]
+git commit --amend [change the last commit]
+git stash [temporarily save changes]
+git stash pop [restore stashed changes]
+git stash list [show saved stashes]
+git clean -fd [remove untracked files]</code></pre>
           </article>
         </div>
       </section>
@@ -420,13 +420,13 @@ git clean -fd</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Collaboration commands</h3>
-            <pre><code>git remote -v
-git remote add origin &lt;url&gt;
-git remote remove &lt;name&gt;
-git fetch
-git push -u origin &lt;branch&gt;
-git push origin --delete &lt;branch&gt;
-git pull --rebase</code></pre>
+            <pre><code>git remote -v [list remote repositories]
+git remote add origin &lt;url&gt; [connect a remote]
+git remote remove &lt;name&gt; [remove a remote]
+git fetch [download remote changes]
+git push -u origin &lt;branch&gt; [publish a branch to remote]
+git push origin --delete &lt;branch&gt; [delete a remote branch]
+git pull --rebase [update by replaying local commits]</code></pre>
           </article>
         </div>
       </section>
@@ -439,11 +439,11 @@ git pull --rebase</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>History and inspection</h3>
-            <pre><code>git log --oneline
-git log --graph --all
-git show &lt;commit&gt;
-git blame &lt;file&gt;
-git diff &lt;branch1&gt; &lt;branch2&gt;</code></pre>
+            <pre><code>git log --oneline [compact commit history]
+git log --graph --all [view branch history graph]
+git show &lt;commit&gt; [display commit details]
+git blame &lt;file&gt; [see who changed each line]
+git diff &lt;branch1&gt; &lt;branch2&gt; [compare branch contents]</code></pre>
           </article>
         </div>
       </section>
@@ -456,13 +456,13 @@ git diff &lt;branch1&gt; &lt;branch2&gt;</code></pre>
         <div class="card-grid">
           <article class="card">
             <h3>Advanced workflows</h3>
-            <pre><code>git rebase &lt;branch&gt;
-git rebase -i HEAD~3
-git cherry-pick &lt;commit&gt;
-git tag &lt;name&gt;
-git submodule
-git bisect
-git reflog</code></pre>
+            <pre><code>git rebase &lt;branch&gt; [reapply commits onto another branch]
+git rebase -i HEAD~3 [interactive rebase of recent commits]
+git cherry-pick &lt;commit&gt; [apply a specific commit]
+git tag &lt;name&gt; [create a tag]
+git submodule [manage nested repositories]
+git bisect [find the bad commit]
+git reflog [inspect recent history references]</code></pre>
           </article>
         </div>
       </section>
