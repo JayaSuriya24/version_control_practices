@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Git Command Reference</title>
+    <style>
+      :root {
+        --bg: #f4f7ff;
+        --panel: rgba(255, 255, 255, 0.92);
+        --panel-2: rgba(248, 250, 255, 0.96);
+        --text: #14213d;
+        --muted: #5f6b85;
+        --accent: #2563eb;
+        --accent-2: #7c3aed;
+        --accent-3: #0f766e;
+        --border: rgba(15, 23, 42, 0.1);
+        --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, "Segoe UI", Roboto, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(37, 99, 235, 0.14), transparent 24%),
+          radial-gradient(circle at top right, rgba(124, 58, 237, 0.12), transparent 24%),
+          linear-gradient(135deg, #f8fbff 0%, #f1f5ff 55%, #eef4ff 100%);
+        line-height: 1.7;
+      }
+
+      .bg-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.2;
+        pointer-events: none;
+        animation: drift 12s ease-in-out infinite alternate;
+      }
+
+      .orb-1 {
+        width: 240px;
+        height: 240px;
+        background: var(--accent);
+        top: 8%;
+        left: -70px;
+      }
+
+      .orb-2 {
+        width: 310px;
+        height: 310px;
+        background: var(--accent-2);
+        top: 35%;
+        right: -80px;
+        animation-duration: 16s;
+      }
+
+      .orb-3 {
+        width: 220px;
+        height: 220px;
+        background: var(--accent-3);
+        bottom: 8%;
+        left: 20%;
+        animation-duration: 14s;
+      }
+
+      @keyframes drift {
+        from { transform: translate3d(0, 0, 0) scale(1); }
+        to { transform: translate3d(20px, 30px, 0) scale(1.08); }
+      }
+
+      .page-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 20px 80px;
+        position: relative;
+        z-index: 1;
+      }
+
+      nav {
+        position: sticky;
+        top: 16px;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 20px;
+        backdrop-filter: blur(16px);
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        box-shadow: var(--shadow);
+      }
+
+      .brand {
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        color: var(--text);
+        text-decoration: none;
+        padding: 8px 12px;
+        border-radius: 999px;
+        transition: 0.25s ease;
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: white;
+        background: linear-gradient(90deg, var(--accent), var(--accent-3));
+      }
+
+      .hero {
+        padding: 70px 0 50px;
+        display: grid;
+        gap: 24px;
+      }
+
+      .hero-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(240,245,255,0.9));
+        border: 1px solid var(--border);
+        border-radius: 30px;
+        padding: 38px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.08), transparent);
+        transform: translateX(-100%);
+        animation: shine 8s linear infinite;
+      }
+
+      @keyframes shine {
+        to { transform: translateX(100%); }
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        margin: 0 0 12px;
+        line-height: 1.1;
+      }
+
+      .hero p {
+        margin: 0;
+        max-width: 760px;
+        color: var(--muted);
+        font-size: 1.02rem;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .pill {
+        padding: 9px 13px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
+        border: 1px solid rgba(37, 99, 235, 0.12);
+        color: var(--text);
+        font-size: 0.95rem;
+      }
+
+      section {
+        margin-top: 28px;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .section-title h2 {
+        font-size: 1.35rem;
+        margin: 0;
+      }
+
+      .section-title span {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .card-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        padding: 22px;
+        box-shadow: var(--shadow);
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .card.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        color: var(--accent);
+        font-size: 1.08rem;
+      }
+
+      .card p {
+        margin: 0 0 12px;
+        color: var(--muted);
+      }
+
+      pre {
+        margin: 0;
+        padding: 16px 18px;
+        overflow-x: auto;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #f8fbff, #eef4ff);
+        border: 1px solid rgba(37, 99, 235, 0.12);
+      }
+
+      code {
+        font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+        font-size: 0.96rem;
+        color: #1e3a8a;
+      }
+
+      .note {
+        background: linear-gradient(90deg, rgba(15, 118, 110, 0.1), rgba(37, 99, 235, 0.08));
+        border: 1px solid rgba(15, 118, 110, 0.16);
+        border-radius: 16px;
+        padding: 18px 20px;
+        color: #134e4a;
+        margin-top: 14px;
+      }
+
+      .list {
+        padding-left: 18px;
+        color: var(--muted);
+      }
+
+      .list li {
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 760px) {
+        nav {
+          border-radius: 20px;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .hero-card {
+          padding: 24px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-orb orb-3"></div>
+
+    <div class="page-shell">
+      <nav>
+        <div class="brand">Git Reference</div>
+        <div class="nav-links">
+          <a href="#daily" class="active">Daily</a>
+          <a href="#tier1">Tier 1</a>
+          <a href="#tier2">Tier 2</a>
+          <a href="#tier3">Tier 3</a>
+          <a href="#tier4">Tier 4</a>
+          <a href="#tier5">Tier 5</a>
+          <a href="#tier6">Tier 6</a>
+          <a href="#github">GitHub</a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div class="hero-card">
+          <h1>Git, made calm and practical.</h1>
+          <p>
+            This guide is organized by real-world usefulness so you can learn the commands that matter most first. Start with the essentials, then grow into branching, recovery, and collaboration as you need them.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Daily essentials</span>
+            <span class="pill">Branching</span>
+            <span class="pill">Undo &amp; fix</span>
+            <span class="pill">Remote workflow</span>
+          </div>
+        </div>
+      </header>
+
+      <section id="daily">
+        <div class="section-title">
+          <h2>Most Used Daily Commands</h2>
+          <span>These are the ones you’ll use every day</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Everyday workflow</h3>
+            <pre><code>git status
+git add .
+git commit -m "message"
+git push
+git pull
+git branch
+git switch &lt;branch&gt;
+git log --oneline
+git diff</code></pre>
+            <div class="note">
+              This is the core loop for most daily Git work: check status, stage changes, commit, push, and pull before moving on.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="tier1">
+        <div class="section-title">
+          <h2>Tier 1: Daily Essentials</h2>
+          <span>Learn these first</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Core commands</h3>
+            <pre><code>git init
+git clone &lt;url&gt;
+git status
+git add &lt;file&gt;
+git add .
+git commit -m "message"
+git push
+git pull
+git log
+git diff</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="tier2">
+        <div class="section-title">
+          <h2>Tier 2: Branching</h2>
+          <span>Work safely in parallel</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Branch commands</h3>
+            <pre><code>git branch
+git branch &lt;name&gt;
+git checkout &lt;branch&gt;
+git checkout -b &lt;name&gt;
+git switch &lt;branch&gt;
+git switch -c &lt;name&gt;
+git merge &lt;branch&gt;
+git branch -d &lt;name&gt;
+git branch -D &lt;name&gt;</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="tier3">
+        <div class="section-title">
+          <h2>Tier 3: Undoing and Fixing Mistakes</h2>
+          <span>Recover without panic</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Safe recovery tools</h3>
+            <pre><code>git restore &lt;file&gt;
+git checkout -- &lt;file&gt;
+git reset &lt;file&gt;
+git reset --soft HEAD~1
+git reset --mixed HEAD~1
+git reset --hard HEAD~1
+git revert &lt;commit&gt;
+git commit --amend
+git stash
+git stash pop
+git stash list
+git clean -fd</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="tier4">
+        <div class="section-title">
+          <h2>Tier 4: Remote and Collaboration</h2>
+          <span>Keep teammates in sync</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Collaboration commands</h3>
+            <pre><code>git remote -v
+git remote add origin &lt;url&gt;
+git remote remove &lt;name&gt;
+git fetch
+git push -u origin &lt;branch&gt;
+git push origin --delete &lt;branch&gt;
+git pull --rebase</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="tier5">
+        <div class="section-title">
+          <h2>Tier 5: Inspecting History</h2>
+          <span>Understand what changed</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>History and inspection</h3>
+            <pre><code>git log --oneline
+git log --graph --all
+git show &lt;commit&gt;
+git blame &lt;file&gt;
+git diff &lt;branch1&gt; &lt;branch2&gt;</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="tier6">
+        <div class="section-title">
+          <h2>Tier 6: More Advanced</h2>
+          <span>Use when the situation demands it</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3>Advanced workflows</h3>
+            <pre><code>git rebase &lt;branch&gt;
+git rebase -i HEAD~3
+git cherry-pick &lt;commit&gt;
+git tag &lt;name&gt;
+git submodule
+git bisect
+git reflog</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="github">
+        <div class="section-title">
+          <h2>GitHub-Specific Concepts</h2>
+          <span>Beyond raw git commands</span>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <ul class="list">
+              <li><strong>Pull Requests (PRs)</strong> — propose merging a branch and get it reviewed.</li>
+              <li><strong>Forking</strong> — copy someone else’s repository into your own account.</li>
+              <li><strong>.gitignore</strong> — tells Git what should never be tracked, like node_modules/ or .env.</li>
+              <li><strong>GitHub Actions</strong> — automates workflows and CI from git events.</li>
+            </ul>
+            <div class="note">
+              A practical note: learn Tier 1 and Tier 2 by using them daily, keep this page as a reference for the rest, and only dive deeper when a real problem requires it.
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const cards = document.querySelectorAll('.card');
+      const links = document.querySelectorAll('.nav-links a');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.12 });
+
+      cards.forEach((card) => observer.observe(card));
+
+      const sections = document.querySelectorAll('section');
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            links.forEach((link) => {
+              const href = link.getAttribute('href');
+              link.classList.toggle('active', href === '#' + entry.target.id);
+            });
+          }
+        });
+      }, { threshold: 0.45 });
+
+      sections.forEach((section) => sectionObserver.observe(section));
+    </script>
+  </body>
+</html>
